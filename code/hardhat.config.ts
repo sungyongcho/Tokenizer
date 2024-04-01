@@ -9,7 +9,7 @@ const config: HardhatUserConfig = {
   networks: {
     sepolia: {
       url: process.env.INFURA_SEPOLIA_ENDPOINT,
-      accounts: [process.env.PRIVATE_KEY]
+      accounts: [process.env.PRIVATE_KEY || '']
     }
   }
 };
