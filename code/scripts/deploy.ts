@@ -7,7 +7,7 @@ async function main(): Promise<void> {
 
   await sucho42token.waitForDeployment();
 
-  console.log("Ocean Token deployed: ", await sucho42token.getAddress());
+  console.log("Sucho42 Token deployed: ", await sucho42token.getAddress());
 }
 
 main().catch((error: Error) => {
