@@ -1,7 +1,4 @@
 import { ethers } from "ethers"
-import dotenv from "dotenv";
-
-dotenv.config();
 
 const fauctAbi = [
   {
@@ -153,7 +150,7 @@ const fauctAbi = [
 
 const faucetContract = (provider: any) => {
   return new ethers.Contract(
-    "0x8C8d21Dc0Ea4406B50B2Db9BA02Dde484cb1764c",
+    process.env.REACT_APP_CONTRACT_ADDRESS || "",
     fauctAbi,
     provider
   )
