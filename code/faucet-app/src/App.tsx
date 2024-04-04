@@ -30,12 +30,10 @@ function App() {
         /* get provider */
         const provider = new ethers.BrowserProvider(window.ethereum);
         /* get accounts */
-        const accounts = await provider.send("eth_requestAccounts", []);
-        const signerPromise = provider.getSigner();
+        const signerResult = await provider.getSigner();
         const faucetContractInstance = faucetContract(provider);
 
         // Wait for the promise to resolve
-        const signerResult = await signerPromise;
         setSigner(signerResult);
         setFcContract(faucetContractInstance);
 
@@ -44,7 +42,7 @@ function App() {
           method: "eth_requestAccounts",
         }) as string[];
         setWalletAddress(metaMaskAccounts[0]);
-        console.log(metaMaskAccounts[0]);
+        console.log("meta mast connected", metaMaskAccounts[0]);
       } catch (err: any) {
         console.error(err.message);
       }
