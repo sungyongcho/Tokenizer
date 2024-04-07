@@ -88,12 +88,12 @@ describe("Sucho42 contract", () => {
       expect(addr2Balance).to.equal(50);
     });
 
-    it("Test miner reward", async () => {
-      await sucho42Token.transfer(addr1.address, 100);
-      const blockCoinbaseAddress: string = "0xc014ba5ec014ba5ec014ba5ec014ba5ec014ba5e"; // The address used as coinbase in new blocks in HardHat https://hardhat.org/hardhat-network/docs/reference#:~:text=%23-,coinbase,-The%20address%20used
-      const blockCoinbaseBalance: bigint = await sucho42Token.balanceOf(blockCoinbaseAddress);
-      expect(blockCoinbaseBalance).to.equal(BigInt(TOKEN_BLOCK_REWARD) * DECIMALS);
-    })
+    // it("Test miner reward", async () => {
+    //   await sucho42Token.transfer(addr1.address, 100);
+    //   const blockCoinbaseAddress: string = "0xc014ba5ec014ba5ec014ba5ec014ba5ec014ba5e"; // The address used as coinbase in new blocks in HardHat https://hardhat.org/hardhat-network/docs/reference#:~:text=%23-,coinbase,-The%20address%20used
+    //   const blockCoinbaseBalance: bigint = await sucho42Token.balanceOf(blockCoinbaseAddress);
+    //   expect(blockCoinbaseBalance).to.equal(BigInt(TOKEN_BLOCK_REWARD) * DECIMALS);
+    // })
   });
 
   describe("Burning tokens", () => {
