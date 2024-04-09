@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { Contract, JsonRpcSigner, ethers } from "ethers"
 import faucetContract from "./ethereum/faucet";
+import multiSigContract from "./ethereum/multiSigWallet";
 
 declare global {
   interface Window {
@@ -31,7 +32,7 @@ function App() {
         const provider = new ethers.BrowserProvider(window.ethereum);
         /* get accounts */
         const signerResult = await provider.getSigner();
-        const faucetContractInstance = faucetContract(provider);
+        const faucetContractInstance = multiSigContract(provider);
 
         // Wait for the promise to resolve
         setSigner(signerResult);
@@ -60,7 +61,7 @@ function App() {
         const accounts = await provider.send("eth_accounts", []);
         if (accounts.length > 0) {
           const signerResult = await provider.getSigner();
-          const faucetContractInstance = faucetContract(provider);
+          const faucetContractInstance = multiSigContract(provider);
 
           // Wait for the promise to resolve
           setSigner(signerResult);
@@ -101,9 +102,10 @@ function App() {
       }
       const fcContractWithSigner = fcContract.connect(signer);
 
-      const tx = await (fcContractWithSigner as any)['requestTokens'](); // Type assertion to 'any'
+      const tx = await (fcContractWithSigner as any)['token'](); // Type assertion to 'any'
 
       await tx.wait();
+      console.log(tx);
       const receipt = await signer.provider.getTransactionReceipt(tx.hash);
 
       // Call the requestTokens function of the contract
@@ -117,6 +119,28 @@ function App() {
         throw new Error("Transaction failed");
       }
       // setTransactionData(res.transactionHash);
+    } catch (err: any) {
+      console.error(err.message);
+      setWithdrawError(err.message);
+    }
+  };
+
+  const checkBalanceHandler = async () => {
+    setWithdrawError("");
+    setWithdrawSuccess("");
+    try {
+      if (!fcContract || !signer) {
+        throw new Error("Faucet contract or signer is not available");
+      }
+      const fcContractWithSigner = fcContract.connect(signer);
+
+      // Call the getBalance function of the contract
+      const balance = await (fcContractWithSigner as any)['getBalance'](); // Type assertion to 'any'
+
+      // await tx.wait();
+      console.log(balance);
+
+      // setWithdrawSuccess(`Current balance: ${balance.toString()} tokens`);
     } catch (err: any) {
       console.error(err.message);
       setWithdrawError(err.message);
@@ -176,6 +200,9 @@ function App() {
                     defaultValue={walletAddress}
                   />
                 </div>
+                <button className="button is-link is-medium" onClick={checkBalanceHandler}>
+                  GET BALANCE
+                </button>
                 <div className="column">
                   <button className="button is-link is-medium" onClick={getS42Handler}>
                     GET TOKENS
