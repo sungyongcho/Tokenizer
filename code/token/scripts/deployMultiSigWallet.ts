@@ -24,9 +24,9 @@ Private Key: 0x8b3a350cf5c34c9194ca85829a2df0ec3153be0318b5e2d3348e872092edffba
  */
 
 async function main(): Promise<void> {
-  const TOKEN_VAL = "0xE77c9f2Cb8C39b89D55e8E6850bf9F9E73691A5D" // insert token address here
+  const TOKEN_VAL = "0x5FbDB2315678afecb367f032d93F642f64180aa3" // insert token address here
   const MultiSigWallet = await ethers.getContractFactory("MultiSigWallet");
-  const multiSigWallet = await MultiSigWallet.deploy(["0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+  const multiSigWallet = await MultiSigWallet.deploy(TOKEN_VAL, ["0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
     "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
     "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
     "0x90F79bf6EB2c4f870365E785982E1f101E93b906",

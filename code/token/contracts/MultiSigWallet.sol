@@ -1,7 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+
 contract MultiSigWallet {
+
     event Deposit(address indexed sender, uint256 amount, uint256 balance);
     event SubmitTransaction(
         address indexed owner,
@@ -17,6 +20,8 @@ contract MultiSigWallet {
     address[] public owners;
     mapping(address => bool) public isOwner;
     uint256 public numConfirmationsRequired;
+    IERC20 public token;
+
 
     struct Transaction {
         address to;
@@ -51,13 +56,15 @@ contract MultiSigWallet {
         _;
     }
 
-    constructor(address[] memory _owners, uint256 _numConfirmationsRequired) {
+    constructor(address _tokenAddress, address[] memory _owners, uint256 _numConfirmationsRequired) {
         require(_owners.length > 0, "owners required");
         require(
             _numConfirmationsRequired > 0
                 && _numConfirmationsRequired <= _owners.length,
             "invalid number of required confirmations"
         );
+
+        token = IERC20(_tokenAddress);
 
         for (uint256 i = 0; i < _owners.length; i++) {
             address owner = _owners[i];
@@ -76,6 +83,10 @@ contract MultiSigWallet {
         emit Deposit(msg.sender, msg.value, address(this).balance);
     }
 
+    function getBalance() external view returns (uint256) {
+        return token.balanceOf(address(this));
+    }
+
     function submitTransaction(address _to, uint256 _value, bytes memory _data)
         public
         onlyOwner
@@ -85,7 +96,7 @@ contract MultiSigWallet {
         transactions.push(
             Transaction({
                 to: _to,
-                value: _value,
+                value: _value * (10 ** 18),
                 data: _data,
                 executed: false,
                 numConfirmations: 0
@@ -124,9 +135,7 @@ contract MultiSigWallet {
 
         transaction.executed = true;
 
-        (bool success,) =
-            transaction.to.call{value: transaction.value}(transaction.data);
-        require(success, "tx failed");
+        require(token.transfer(transaction.to, transaction.value), "token transfer failed");
 
         emit ExecuteTransaction(msg.sender, _txIndex);
     }
