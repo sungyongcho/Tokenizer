@@ -1,6 +1,7 @@
 import { Link, Route, Routes } from "react-router-dom";
 import Faucet from "./Faucet";
 import MultiSigApp from "./MultiSigApp";
+import NavBar from "./components/NavBar";
 
 function App() {
   return (
@@ -19,6 +20,10 @@ function App() {
         <Route path="/" element={<Faucet />} />
         <Route path="/multisig" element={<MultiSigApp />} />
       </Routes>
+      <h1 className="text-3xl font-bold underline">
+        Hello world!
+        <NavBar></NavBar>
+      </h1>
     </div>
   );
 }

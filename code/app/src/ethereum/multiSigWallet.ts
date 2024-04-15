@@ -1,5 +1,5 @@
 import { ethers } from "ethers"
-import * as multiSigAbi from "../build/contracts/MultiSigWallet.json"
+import multiSigAbi from "../build/contracts/MultiSigWallet.json"
 
 const multiSigContract = (provider: any) => {
   return new ethers.Contract(
