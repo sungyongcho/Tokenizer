@@ -27,46 +27,69 @@ function MultiSigWallet({ account }: any) {
     fetchWalletData(); // Call the fetchWalletData function when component mounts
   }, []); // Empty dependency array to run effect only once when component mounts
 
+
+  const [showTransactions, setShowTransactions] = useState(false);
+
+  const toggleTransactions = () => {
+    setShowTransactions(!showTransactions);
+  };
+
+
   return (
     <div>
-      {walletData && ( // Check if walletData is available before rendering
+      {walletData && (
         <>
           <div>Contract: {walletData.address}</div>
           <h3>Balance: {walletData.balance} S42</h3>
+          <br />
           <h3>Owners: </h3>
           <div>
             {walletData.owners.map((owner) => (
-              <p key={owner}>{owner}</p>
+              <li key={owner}>{owner}</li>
             ))}
           </div>
+          <br />
           <div>Confirmations required: {walletData.numConfirmationsRequired}</div>
-          <h3>Transactions ({walletData.transactionCount})</h3>
-          <div>
-            {/* Map through transactions array and render each transaction */}
-            {walletData.transactions.map((transaction, index) => (
-              <div key={index}>
-                <p>Transaction Index: {transaction.txIndex}</p>
-                <p>To: {transaction.to}</p>
-                <p>Value: {transaction.value.toString()}</p>
-                <p>Data: {transaction.data}</p>
-                <p>Executed: {transaction.executed.toString()}</p>
-                <p>Num Confirmations: {transaction.numConfirmations}</p>
-                <p>Confirmed By Current Account: {transaction.isConfirmedByCurrentAccount.toString()}</p>
-                {/* Conditionally render confirm transaction message */}
-                {!transaction.isConfirmedByCurrentAccount && walletData.owners.includes(account) && (
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleConfirmTransaction(transaction.txIndex)}>
-                    Confirm Transaction
-                  </button>
-                )}
-                {!transaction.executed && walletData.owners.includes(account) && transaction.numConfirmations >= walletData.numConfirmationsRequired && (
-                  <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleExecuteTransaction(transaction.txIndex)}>
-                    Execute Transaction
-                  </button>
-                )}
-              </div>
-            ))}
-          </div>
-          {/* Render transactions here */}
+          <br />
+          <h3>Transactions: {walletData.transactionCount}</h3>
+
+          <button
+            className="mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={toggleTransactions}
+          >
+            {showTransactions ? 'Hide Transactions' : 'Show Transactions'}
+          </button>
+
+          {showTransactions && (
+            <div>
+              {walletData.transactions.map((transaction, index) => (
+                <div key={index} className="border border-gray-300 rounded-lg p-4 mb-4">
+                  <p className="mb-2">Transaction Index: {transaction.txIndex}</p>
+                  <p className="mb-2">To: {transaction.to}</p>
+                  <p className="mb-2">Value: {transaction.value.toString()}</p>
+                  <p className="mb-2">Data: {transaction.data}</p>
+                  <p className="mb-2">Executed: {transaction.executed.toString()}</p>
+                  <p className="mb-2">Num Confirmations: {transaction.numConfirmations}</p>
+                  <p className="mb-2">Confirmed By Current Account: {transaction.isConfirmedByCurrentAccount.toString()}</p>
+
+                  {/* Buttons */}
+                  <div className="flex justify-start space-x-4">
+                    {!transaction.isConfirmedByCurrentAccount && walletData.owners.includes(account) && (
+                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleConfirmTransaction(transaction.txIndex)}>
+                        Confirm Transaction
+                      </button>
+                    )}
+                    {!transaction.executed && walletData.owners.includes(account) && transaction.numConfirmations >= walletData.numConfirmationsRequired && (
+                      <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleExecuteTransaction(transaction.txIndex)}>
+                        Execute Transaction
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+          <br />
           <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={() => openModal(true)}>
             Create Transaction
           </button>

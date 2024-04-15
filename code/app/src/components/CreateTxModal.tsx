@@ -34,7 +34,9 @@ const CreateTxModal: React.FC<Props> = ({ open, onClose }) => {
     });
   }
 
-  async function onSubmit() {
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault(); // Prevent default form submission behavior
+
     if (pending) {
       return;
     }
@@ -46,6 +48,7 @@ const CreateTxModal: React.FC<Props> = ({ open, onClose }) => {
       //   throw new Error("No web3");
       // }
 
+      console.log(inputs)
       await submitTx(inputs);
       setError(null);
       onClose();
@@ -57,51 +60,57 @@ const CreateTxModal: React.FC<Props> = ({ open, onClose }) => {
   }
 
   return (
-    <Modal open={open} onClose={onClose}>
-      <Modal.Header>Create Transaction</Modal.Header>
-      <Modal.Content>
-        {error && <Message error>{error}</Message>}
-        <Form onSubmit={onSubmit}>
-          <Form.Field>
-            <label>To</label>
-            <Form.Input
-              type="text"
-              value={inputs.to}
-              onChange={(e) => onChange("to", e.target.value)}
-            />
-          </Form.Field>
-          <Form.Field>
-            <label>Value</label>
-            <Form.Input
-              type="number"
-              min={0}
-              value={inputs.value}
-              onChange={(e) => onChange("value", e.target.value)}
-            />
-          </Form.Field>
-          <Form.Field>
-            <label>Data</label>
-            <Form.Input
-              value={inputs.data}
-              onChange={(e) => onChange("data", e.target.value)}
-            />
-          </Form.Field>
-        </Form>
-      </Modal.Content>
-      <Modal.Actions>
-        <Button onClick={onClose} disabled={pending}>
-          Cancel
-        </Button>
-        <Button
-          color="green"
-          onClick={onSubmit}
-          disabled={pending}
-          loading={pending}
-        >
-          Create
-        </Button>
-      </Modal.Actions>
-    </Modal>
+    <div className={open ? "block" : "hidden"}>
+      <div className="text-lg font-bold mb-4">Create Transaction</div>
+      {error && <div className="text-red-500 mb-4">{error}</div>}
+      <form onSubmit={onSubmit} className="mb-4">
+        <div className="mb-4">
+          <label className="block mb-2">To</label>
+          <input
+            className="border border-gray-300 rounded-md p-2 w-full"
+            type="text"
+            value={inputs.to}
+            onChange={(e) => onChange("to", e.target.value)}
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block mb-2">Value</label>
+          <input
+            className="border border-gray-300 rounded-md p-2 w-full"
+            type="number"
+            min={0}
+            value={inputs.value}
+            onChange={(e) => onChange("value", e.target.value)}
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block mb-2">Data</label>
+          <input
+            className="border border-gray-300 rounded-md p-2 w-full"
+            value={inputs.data}
+            onChange={(e) => onChange("data", e.target.value)}
+          />
+        </div>
+        <div className="flex justify-between">
+          <button
+            className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="button"
+            onClick={onClose}
+            disabled={pending}
+          >
+            Cancel
+          </button>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="submit"
+            disabled={pending}
+          >
+            Create
+          </button>
+        </div>
+      </form>
+    </div>
+
   );
 };
 

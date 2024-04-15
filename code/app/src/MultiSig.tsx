@@ -60,16 +60,16 @@ function MultiSig() {
   };
 
   return (
-    <div>
-      <h1>Multi Sig Wallet</h1>
+    <div className="flex flex-col items-center justify-center">
+      <h1 className="mb-8">Multi Sig Wallet</h1>
       {walletAddress ? (
         <>
-          <div>Account: {walletAddress}</div>
+          <div className="mb-4">Account: {walletAddress}</div>
           <MultiSigWallet account={walletAddress} />
         </>
       ) : (
         <>
-          <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative" role="alert">
+          <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative mb-4" role="alert">
             Metamask is not connected
           </div>
           <button

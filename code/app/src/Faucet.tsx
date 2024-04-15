@@ -137,6 +137,9 @@ function Faucet() {
         </span>
       </button>
       <div>
+        <div>
+          Faucet smart contract address: {process.env.REACT_APP_FAUCET_ADDRESS}
+        </div>
         <section className="min-h-screen flex items-center justify-center">
           <div className="faucet-hero-body">
             <div className="container mx-auto text-center main-content">
