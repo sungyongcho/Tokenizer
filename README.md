@@ -22,8 +22,7 @@ In the 'deployment' folder, execute the following shell scripts in sequential or
 ```
 
 ## References
-
-## References
+- [OpenZeppelin | contracts - Solidity Wizard](https://wizard.openzeppelin.com/)
 - [What is Blockchain - Ledger Academy](https://www.ledger.com/academy/what-is-blockchain)
 - [How Does a Blockchain Transaction Work - Ledger Academy](https://www.ledger.com/academy/how-does-a-blockchain-transaction-work)
 - [ERC20 Token Tutorial | Create Your Own Cryptocurrency](https://www.youtube.com/watch?v=gc7e90MHvl8)
