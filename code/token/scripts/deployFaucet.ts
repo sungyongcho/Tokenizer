@@ -1,10 +1,11 @@
 import { ethers } from "hardhat";
-import { Faucet, Faucet__factory } from "../typechain-types";
+import dotenv from "dotenv"
+
+dotenv.config()
 
 async function main(): Promise<void> {
-  const TOKEN_VAL = "0x5FbDB2315678afecb367f032d93F642f64180aa3" // insert token address here
   const Faucet = await ethers.getContractFactory("Faucet");
-  const faucet = await Faucet.deploy(TOKEN_VAL);
+  const faucet = await Faucet.deploy(process.env.TOKEN_ADDRESS || "");
 
   await faucet.waitForDeployment();
 

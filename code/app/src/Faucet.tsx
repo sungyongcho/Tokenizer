@@ -144,7 +144,7 @@ function Faucet() {
           <div className="faucet-hero-body">
             <div className="container mx-auto text-center main-content">
               <h1 className="text-4xl font-bold mb-4">Faucet</h1>
-              <p className="text-lg mb-4">Fast and reliable. 50 S42/???(todo).</p>
+              <p className="text-lg mb-4">Fast and reliable. 50 S42/minute.</p>
               <div className="mt-5">
                 {withdrawError && (
                   <div className="text-red-500">
