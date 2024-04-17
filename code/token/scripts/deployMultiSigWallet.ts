@@ -25,11 +25,11 @@ Private Key: 0x8b3a350cf5c34c9194ca85829a2df0ec3153be0318b5e2d3348e872092edffba
 
 async function main(): Promise<void> {
   const MultiSigWallet = await ethers.getContractFactory("MultiSigWallet");
-  const multiSigWallet = await MultiSigWallet.deploy(process.env.TOKEN_ADDRESS || "", ["0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-    "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
-    "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
-    "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
-    "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65"], 2);
+  const multiSigWallet = await MultiSigWallet.deploy(process.env.TOKEN_ADDRESS || "", [process.env.MULTISIG_ACCOUNT_1 || "",
+  process.env.MULTISIG_ACCOUNT_2 || "",
+  process.env.MULTISIG_ACCOUNT_3 || "",
+  process.env.MULTISIG_ACCOUNT_4 || "",
+  process.env.MULTISIG_ACCOUNT_5 || ""], 2);
 
   await multiSigWallet.waitForDeployment();
 
