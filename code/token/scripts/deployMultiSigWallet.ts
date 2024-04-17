@@ -1,5 +1,5 @@
 import { ethers } from "hardhat";
-import { Faucet, Faucet__factory } from "../typechain-types";
+import { MultiSigWallet, MultiSigWallet__factory } from "../typechain-types";
 
 /**
  *

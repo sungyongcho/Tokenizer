@@ -16,10 +16,20 @@ The Tokenizer project introduces the Sucho42 Token, offering an educational jour
 ## Deployment Instructions
 In the 'deployment' folder, execute the following shell scripts in sequential order:
 ```
+# For deploying on sepolia network:
+./deploy_token.sh # Deploy the token contract on sepolia.
+./deploy_faucet.sh # Deploy the token contract on sepolia.
+./deploy_multisig.sh # Deploy the token contract on sepolia.
+./deply_web.sh # Deploy the web application (faucet, multisig).
+
+# For testing on local blockchain using hardhat
 ./start_hardhat_node.sh # Deploy Ethereum test blockchain.
-./deply_smart_contract.sh # Deploy smart contracts to the test blockchain.
+./deploy_token.sh localhost # Deploy the token contract on localhost.
+./deploy_faucet.sh localhost # Deploy the faucet contract on localhost.
+./deploy_multisig.sh localhost # Deploy the multisig contract on localhost.
 ./deply_web.sh # Deploy the web application (faucet, multisig).
 ```
+Make sure the token values are set correctly on the environment variable.
 
 ## References
 - [OpenZeppelin | contracts - Solidity Wizard](https://wizard.openzeppelin.com/)

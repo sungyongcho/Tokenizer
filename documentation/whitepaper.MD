@@ -26,7 +26,14 @@
 - Security measures prioritize safeguarding user assets and the integrity of the ecosystem. Notably, the multisig wallet enforces stringent access controls, while the faucet app incorporates time-based withdrawal limits to mitigate abuse.
 
 ## 7. Deployment and Usage
-- Deploying the Sucho42 token is a straightforward process facilitated by provided scripts located in `development` folder of the proejct (`start_hardhat_node.sh`, `deploy_smart_contract.sh`, `deploy_web.sh`). Users can obtain, transfer, and utilize the token effectively through a user-friendly web application.
+- Deploying the Sucho42 token is a straightforward process facilitated by provided scripts located in the `development` folder of the project (`deploy_token.sh`, `deploy_faucet.sh`, `deploy_multisig.sh`, `deploy_web.sh`). Ensure that the smart contract addresses are correctly set using environment variables. Users can obtain, transfer, and utilize the token effectively through a user-friendly web application. For testing on a local blockchain network using Hardhat, execute `start_hardhat_node.sh` first, and for each deployment script (`deploy_token.sh`, `deploy_faucet.sh`, `deploy_multisig.sh`), pass the argument localhost like so:
+```
+$ deploy_token.sh localhost
+$ deploy_faucet.sh localhost
+$ deploy_multisig.sh localhost
+```
+- For deployment and testing purposes, the Ethereum Sepolia network is utilized. This network provides an environment conducive to testing and experimentation, allowing developers to validate the functionality and behavior of the Sucho42 token in a controlled setting. Additionally, local testing blockchain networks can be used for initial checking and development before deploying on the Sepolia network.
+
 
 ## 8. Future Developments
 - While the current version of the project is tailored for educational purposes, future developments may expand its functionality and utility within the ecosystem.

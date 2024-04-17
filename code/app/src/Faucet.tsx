@@ -103,12 +103,10 @@ function Faucet() {
       const tx = await (fcContractWithSigner as any)['requestTokens'](); // Type assertion to 'any'
 
       console.log(tx);
-      const receipt = await signer.provider.getTransactionReceipt(tx.hash);
+      // Wait for transaction receipt
+      const receipt = await tx.wait(); // This will wait until the transaction is mined and return the receipt
 
-      // Call the requestTokens function of the contract
-
-      // Wait for transaction confirmation
-      // Check if the transaction was successful
+      console.log(receipt);
       if (receipt && receipt.status === 1) {
         setWithdrawSuccess("Operation Succeeded - enjoy your tokens!");
         setTransactionData(tx.hash)
