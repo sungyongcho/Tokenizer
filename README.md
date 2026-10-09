@@ -31,6 +31,18 @@ In the 'deployment' folder, execute the following shell scripts in sequential or
 ```
 Make sure the token values are set correctly on the environment variable.
 
+## Deployed on Sepolia
+
+The final deployment (April 20, 2024), exercised end to end on the Sepolia testnet:
+
+| Contract | Address |
+|---|---|
+| Sucho42 (S42) ERC-20 token | [0xdae76a24E350c25abA04C5285560159a50d6c796](https://sepolia.etherscan.io/address/0xdae76a24E350c25abA04C5285560159a50d6c796) |
+| Faucet | [0xaf0aCEC87E49499B43940A51D2d4fA276C398B96](https://sepolia.etherscan.io/address/0xaf0aCEC87E49499B43940A51D2d4fA276C398B96) |
+| Multi-signature wallet | [0x4Bb3F9A1075419fbD8D3D00325060808BE969360](https://sepolia.etherscan.io/address/0x4Bb3F9A1075419fbD8D3D00325060808BE969360) |
+
+Token requests went through the faucet, and a multisig transaction was submitted, confirmed and executed.
+
 ## References
 - [OpenZeppelin | contracts - Solidity Wizard](https://wizard.openzeppelin.com/)
 - [What is Blockchain - Ledger Academy](https://www.ledger.com/academy/what-is-blockchain)
