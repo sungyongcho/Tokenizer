@@ -18,16 +18,16 @@ In the 'deployment' folder, execute the following shell scripts in sequential or
 ```
 # For deploying on sepolia network:
 ./deploy_token.sh # Deploy the token contract on sepolia.
-./deploy_faucet.sh # Deploy the token contract on sepolia.
-./deploy_multisig.sh # Deploy the token contract on sepolia.
-./deply_web.sh # Deploy the web application (faucet, multisig).
+./deploy_faucet.sh # Deploy the faucet contract on sepolia.
+./deploy_multisig.sh # Deploy the multisig wallet contract on sepolia.
+./deploy_web.sh # Start the web application (faucet, multisig).
 
 # For testing on local blockchain using hardhat
-./start_hardhat_node.sh # Deploy Ethereum test blockchain.
+./start_hardhat_node.sh # Start a local Ethereum test chain.
 ./deploy_token.sh localhost # Deploy the token contract on localhost.
 ./deploy_faucet.sh localhost # Deploy the faucet contract on localhost.
-./deploy_multisig.sh localhost # Deploy the multisig contract on localhost.
-./deply_web.sh # Deploy the web application (faucet, multisig).
+./deploy_multisig.sh localhost # Deploy the multisig wallet contract on localhost.
+./deploy_web.sh # Start the web application (faucet, multisig).
 ```
 Make sure the token values are set correctly on the environment variable.
 
